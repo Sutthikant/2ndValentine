@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+        <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+            body {
+            font-family: 'Itim', 'Georgia', serif;
+            background: linear-gradient(135deg, #FCF4F8 0%, #FAD0D7 50%, #FFB3C9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        #root {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            margin: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .question {
+            font-size: 3rem;
+            color: #FF97CC;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: bold;
+        }
+
+        .warning-message {
+            font-size: 1.5rem;
+            color: black;
+            margin: 1.5rem 0;
+            min-height: 2rem;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        button {
+            padding: 1.5rem 3rem;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #FF97CC, #FFB3C9);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 151, 204, 0.4);
+        }
+
+        .no-btn {
+            background: linear-gradient(135deg, #FAD0D7, #FCF4F8);
+            color: #FF97CC;
+        }
+
+        .no-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .roses-container {
+            position: relative;
+            width: 600px;
+            height: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: roseAppear 1s ease-in;
+        }
+
+        @keyframes roseAppear {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .roses-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .letter-envelope {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 2;
+            animation: envelopeFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes envelopeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .letter-envelope:hover {
+            transform: scale(1.1) !important;
+        }
+
+        .envelope-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.2));
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #FCF4F8 0%, #FAD0D7 50%, #FFB3C9 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .loading-gif {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+
+        .loading-text {
+            font-size: 1.5rem;
+            color: #FF97CC;
+            font-weight: bold;
+            animation: fadeInOut 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .back-button {
+            margin-bottom: 2rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #FAD0D7, #FCF4F8);
+            color: #FF97CC;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .photo-card {
+            perspective: 1000px;
+            height: 400px;
+            animation: cardEnter 0.6s ease-out backwards;
+        }
+
+        .photo-card:nth-child(1) { animation-delay: 0.1s; }
+        .photo-card:nth-child(2) { animation-delay: 0.2s; }
+        .photo-card:nth-child(3) { animation-delay: 0.3s; }
+        .photo-card:nth-child(4) { animation-delay: 0.4s; }
+        .photo-card:nth-child(5) { animation-delay: 0.5s; }
+        .photo-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes cardEnter {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .photo-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .photo-card.flipped .photo-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .photo-front, .photo-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .photo-front {
+            background: #fcbfd0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .photo-front img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .photo-placeholder {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .photo-back {
+            background: linear-gradient(135deg, #FF97CC, #FFB3C9);
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .photo-message {
+            color: white;
+            font-size: 1.3rem;
+            text-align: center;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function ValentineApp() {
+            const [stage, setStage] = useState('question'); // question, roses, gallery, loading
+            const [noClickCount, setNoClickCount] = useState(0);
+            const [flippedCards, setFlippedCards] = useState({});
+
+            // Demo image URLs - replace these with your own images
+            const roseBouquetImage = "/rose.png"
+            const envelopeImage = "/envelope.png";
+
+            const noMessages = [
+                "มือลั่นสินะคับ 🤔",
+                "กดผิดอะป่าวววววว??? 😳",
+                "อ่านคำถามดี ๆๆๆๆๆๆ",
+                "แน่ใจเหยอออออออออ??? 😭",
+                "ถ้ากด No อีกจะงอนแล้วนะคับ 🥺"
+            ];
+
+            // Placeholder for photos - you can add real image URLs later
+            const photos = [
+                { 
+                    id: 1, 
+                    src: '/pic/1.jpg', // Add your image path here
+                    message: "สุขสันต์วันวาเลนไทน์น้าคับ รักคุณน้าาาา ✨"
+                },
+                { 
+                    id: 2, 
+                    src: '/pic/4.jpg', 
+                    message: "ปีนี้เป็นวาเลนไทน์ปีที่ 2 ของเรา ขอโทษทีน้าคับที่ปีนี้ไม่ได้อยู่ด้วยกัน..."
+                },
+                { 
+                    id: 3, 
+                    src: '/pic/3.jpg', 
+                    message: "ขอบคุณที่อยู่ข้าง ๆ กันมาตลอดนะคับ 💕"
+                },
+                { 
+                    id: 4, 
+                    src: '/pic/2.jpg', 
+                    message: "รักคุณที่สุดเยย ไอต้าวเบบี๋ของผม 💖"
+                },
+                { 
+                    id: 5, 
+                    src: '/pic/6.jpg', 
+                    message: "หลังจากนี้คงมีอะไร ๆ เข้ามาอีกมากมาย ปีนี้ก็มาพยายามไปด้วยกันนะคับ "
+                },
+                { 
+                    id: 6, 
+                    src: '/pic/5.jpg', 
+                    message: "ผมจาลากคุณไปออกกำลังกายด้วยกันบ่อย ๆ เยยยยย"
+                },
+                {
+                    id: 7, 
+                    src: '/pic/7.jpg',
+                    message: "รักคุณน้าคับไอต้าว 🥺 💖 \nอยากกลับไปกอดคุณแย้ว"
+                }
+            ];
+
+            const handleYes = () => {
+                setStage('loading');
+                setTimeout(() => {
+                    setStage('roses');
+                }, 2000); // 2 second loading animation
+            };
+
+            const handleNo = () => {
+                if (noClickCount >= 5) {
+                    alert("Program terminated! Maybe next time... 💔");
+                    window.close();
+                    // If window.close() doesn't work, redirect to a goodbye page
+                    document.body.innerHTML = '<div style="text-align:center; padding:50px; font-size:2rem; color:#FF97CC;">งอนแล่ว!!! 😠</div>';
+                } else {
+                    setNoClickCount(noClickCount + 1);
+                }
+            };
+
+            const openLetter = () => {
+                setStage('loading');
+                setTimeout(() => {
+                    setStage('gallery');
+                }, 2000); // 2 second loading animation
+            };
+
+            const toggleFlip = (id) => {
+                setFlippedCards(prev => ({
+                    ...prev,
+                    [id]: !prev[id]
+                }));
+            };
+
+            const backToRoses = () => {
+                setStage('roses');
+                setFlippedCards({});
+            };
+
+            if (stage === 'question') {
+                return (
+                    <div className="container">
+                        <h1 className="question">Will You Be My Valentine? 💕</h1>
+                        {noClickCount > 0 && (
+                            <p className="warning-message" key={noClickCount}>
+                                {noMessages[noClickCount - 1]}
+                            </p>
+                        )}
+                        <div className="button-container">
+                            <button className="yes-btn" onClick={handleYes}>Yes! 💖</button>
+                            <button className="no-btn" onClick={handleNo}>No 💔</button>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (stage === 'roses') {
+                return (
+                    <div className="container">
+                        <h2>เอาดอกไม้มาให้คับบบบบบ ✨</h2>
+                        <div className="roses-container">
+                            <img src={roseBouquetImage} alt="rose bouquet" className="roses-background" />
+                            <div className="letter-envelope" onClick={openLetter}>
+                                <img src={envelopeImage} alt="envelope" className="envelope-image" />
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (stage === 'loading') {
+                return (
+                    <div className="loading-screen">
+                        <img src="/loading.gif" alt="Loading" className="loading-gif" />
+                        <p className="loading-text">Loading...</p>
+                    </div>
+                );
+            }
+
+            if (stage === 'gallery') {
+                return (
+                    <div className="gallery-container">
+                        <img src="hamster.gif" alt="Hamster" className="hamster-gif" />
+                        <button className="back-button" onClick={backToRoses}>← กลับไปดูดอกไม้</button>
+                        <div className="photo-grid">
+                            {photos.map(photo => (
+                                <div 
+                                    key={photo.id} 
+                                    className={`photo-card ${flippedCards[photo.id] ? 'flipped' : ''}`}
+                                    onClick={() => toggleFlip(photo.id)}
+                                >
+                                    <div className="photo-card-inner">
+                                        <div className="photo-front">
+                                            {photo.src ? (
+                                                <img src={photo.src} alt={`Memory ${photo.id}`} />
+                                            ) : (
+                                                <div className="photo-placeholder">
+                                                    Photo {photo.id}<br/>
+                                                    <span style={{fontSize: '1rem'}}>(Add your image here)</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="photo-back">
+                                            <p className="photo-message">{photo.message}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<ValentineApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>
