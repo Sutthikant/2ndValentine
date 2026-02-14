@@ -324,8 +324,8 @@
             const [flippedCards, setFlippedCards] = useState({});
 
             // Demo image URLs - replace these with your own images
-            const roseBouquetImage = "/rose.png"
-            const envelopeImage = "/envelope.png";
+            const roseBouquetImage = "rose.png"
+            const envelopeImage = "envelope.png";
 
             const noMessages = [
                 "มือลั่นสินะคับ 🤔",
@@ -339,37 +339,37 @@
             const photos = [
                 { 
                     id: 1, 
-                    src: '/pic/1.jpg', // Add your image path here
+                    src: './pic/1.jpg', // Add your image path here
                     message: "สุขสันต์วันวาเลนไทน์น้าคับ รักคุณน้าาาา ✨"
                 },
                 { 
                     id: 2, 
-                    src: '/pic/4.jpg', 
+                    src: './pic/4.jpg', 
                     message: "ปีนี้เป็นวาเลนไทน์ปีที่ 2 ของเรา ขอโทษทีน้าคับที่ปีนี้ไม่ได้อยู่ด้วยกัน..."
                 },
                 { 
                     id: 3, 
-                    src: '/pic/3.jpg', 
+                    src: './pic/3.jpg', 
                     message: "ขอบคุณที่อยู่ข้าง ๆ กันมาตลอดนะคับ 💕"
                 },
                 { 
                     id: 4, 
-                    src: '/pic/2.jpg', 
+                    src: './pic/2.jpg', 
                     message: "รักคุณที่สุดเยย ไอต้าวเบบี๋ของผม 💖"
                 },
                 { 
                     id: 5, 
-                    src: '/pic/6.jpg', 
+                    src: './pic/6.jpg', 
                     message: "หลังจากนี้คงมีอะไร ๆ เข้ามาอีกมากมาย ปีนี้ก็มาพยายามไปด้วยกันนะคับ "
                 },
                 { 
                     id: 6, 
-                    src: '/pic/5.jpg', 
+                    src: './pic/5.jpg', 
                     message: "ผมจาลากคุณไปออกกำลังกายด้วยกันบ่อย ๆ เยยยยย"
                 },
                 {
                     id: 7, 
-                    src: '/pic/7.jpg',
+                    src: './pic/7.jpg',
                     message: "รักคุณน้าคับไอต้าว 🥺 💖 \nอยากกลับไปกอดคุณแย้ว"
                 }
             ];
@@ -445,7 +445,7 @@
             if (stage === 'loading') {
                 return (
                     <div className="loading-screen">
-                        <img src="/loading.gif" alt="Loading" className="loading-gif" />
+                        <img src="loading.gif" alt="Loading" className="loading-gif" />
                         <p className="loading-text">Loading...</p>
                     </div>
                 );
